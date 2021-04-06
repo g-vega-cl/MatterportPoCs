@@ -1,12 +1,12 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import {MatterportBox} from 'components/MatterportBox';
+import {MatterportPage} from 'components/MatterportPage';
 
 function App() {
   return (
     <div className="App">
-      <MatterportBox />
+        <MatterportPage/>
     </div>
   );
 }
