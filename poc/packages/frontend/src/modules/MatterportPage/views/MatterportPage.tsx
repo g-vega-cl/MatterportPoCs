@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   sidebar:{
     width:"100%",
-    height:"80vh"
+    height:"99vh"
   }
 }));
 
