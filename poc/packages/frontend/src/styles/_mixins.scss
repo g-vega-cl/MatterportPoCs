@@ -1,0 +1,29 @@
+// based on material-ui breakpoints
+$small: 600px;
+$medium: 960px;
+$large: 1280px;
+$xlarge: 1920px;
+
+@mixin small {
+  @media (min-width: $small) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (min-width: $medium) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: $large) {
+    @content;
+  }
+}
+
+@mixin xlarge {
+  @media (min-width: $xlarge) {
+    @content;
+  }
+}

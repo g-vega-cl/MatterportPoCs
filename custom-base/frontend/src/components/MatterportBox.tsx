@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
+
 export const MatterportBox = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  console.log("MATTERPORTBOX", iframeRef);
 
   useEffect(() => {
     if (iframeRef.current) {

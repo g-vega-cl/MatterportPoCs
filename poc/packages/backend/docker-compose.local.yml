@@ -1,0 +1,35 @@
+version: "3.4"
+volumes:
+  node_modules:
+services:
+  api:
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    working_dir: /app
+    environment:
+      - JWT_SECRET=QgULEEcV_025R_CGu5orzsk0aZ84S3JkpQTl1qYFohQ
+      - SERVER_PORT=8888
+      - LOG_LEVEL=debug
+      - URLS_PROTOCOL=http
+      - URLS_URL=localhost
+      - URLS_PORT=8888
+      - URLS_API_ROOT=/api/v1
+      - DB_NAME=backend
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - EMAIL_FROM_ADDRESS=MyApp<no-reply@example.com>
+      - EMAIL_API_KEY=(yourmailgunapikey)
+      - EMAIL_DOMAIN=(yourmailgundomain)
+  mysql:
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: "backend"
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"

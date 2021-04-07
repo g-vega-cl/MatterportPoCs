@@ -1,0 +1,43 @@
+@import '../../styles/variables';
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em 1em;
+  margin: 0;
+  border-bottom: 1px solid $ui-01;
+
+  &.selected {
+    background-color: $ui-03;
+  }
+
+  &:first-child.selected {
+    border-top: 1px solid $ui-01;
+  }
+
+  .item-info-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .item-title {
+      color: $text-01;
+      margin: 0;
+      padding: 0 0 0.2em 0;
+    }
+
+    .item-description {
+      color: $ui-01;
+    }
+  }
+
+  .item-actions-area {
+    & > button {
+      border: none;
+      background-color: transparent;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

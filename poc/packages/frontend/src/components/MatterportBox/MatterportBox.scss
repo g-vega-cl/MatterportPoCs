@@ -1,0 +1,34 @@
+.matter-box {
+  position: relative;
+
+  .matter-iframe {
+    height: 480px;
+    width: 100%;
+  }
+
+  .button-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .add-label {
+    cursor: pointer;
+    background: #831e1e;
+    color: white;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 999;
+    padding: 5px 9px;
+
+    &:hover {
+      background: green;
+    }
+  }
+}
+
+.error {
+  color: red;
+}

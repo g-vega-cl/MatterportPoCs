@@ -1,15 +1,14 @@
-import { Dialect } from "sequelize/types";
-import ip from "ip";
-import path from "path";
+import * as ip from "ip";
+import * as path from "path";
 
-export const config = {
+export const config: any = {
   root: path.normalize(`${__dirname}/..`),
 
   env: process.env.NODE_ENV || "development",
 
   jwt: {
     secret:
-      process.env.JWT_SECRET || "9fFzpnKzn5H3X3jfHyJfnXrnfwZyN6F5i5ZpUC-DrN0",
+      process.env.JWT_SECRET || "0JDskzqRVj-khc0woMb_GYbHs7ClopaC8ix68zN2KVk",
     access: {
       expiry: {
         unit: "months",
@@ -39,16 +38,9 @@ export const config = {
   email: {
     from_address:
       process.env.EMAIL_FROM_ADDRESS || "MyApp <no-reply@example.com>",
-    host: process.env.EMAIL_SMTP_HOST || "smtp.gmail.com",
-    port: process.env.EMAIL_SMPT_PORT
-      ? parseInt(process.env.EMAIL_SMPT_PORT)
-      : 587,
-    secure: process.env.EMAIL_SMTP_SECURE
-      ? process.env.EMAIL_SMTP_SECURE === "true"
-      : true,
     auth: {
-      user: process.env.EMAIL_SMTP_USER || "(your SMTP user)",
-      pass: process.env.EMAIL_SMTP_PASS || "(your SMTP password)",
+      api_key: process.env.EMAIL_API_KEY || "(your mailgun api key)",
+      domain: process.env.EMAIL_DOMAIN || "(your mailgun domain)",
     },
   },
 
@@ -67,9 +59,6 @@ export const config = {
   log: {
     // Console Log levels: error, warn, info, verbose, debug, silly
     level: process.env.LOG_LEVEL || "debug",
-    logToFiles: process.env.LOG_TO_FILES
-      ? process.env.LOG_TO_FILES === "true"
-      : false,
   },
 
   urls: {
@@ -79,19 +68,18 @@ export const config = {
     url: process.env.URLS_URL || ip.address(),
     port: process.env.URLS_PORT ? String(process.env.URLS_PORT) : "",
     apiRoot: process.env.URLS_API_ROOT || "/api/v1",
-    base: "",
-    baseApi: "",
   },
 
   db: {
-    database: process.env.DB_NAME || "matterport-poc-db",
+    database: process.env.DB_NAME || "flugzeug-project",
     username: process.env.DB_USER || "root",
     password: process.env.DB_PASSWORD || "",
     host: process.env.DB_HOST || "localhost",
-    dialect: (process.env.DB_TYPE || "mysql") as Dialect,
+    dialect: "mysql",
     logging: false,
-    storage: process.env.DB_STORAGE || "db.sqlite",
-    timezone: "utc", // IMPORTANT For correct timezone management with DB.
+    port: process.env.DB_PORT || "3306",
+    //storage: 'db.sqlite',
+    timezone: "utc", // IMPORTANT For correct timezone management with DB, Tasks etc.
   },
 };
 
@@ -101,8 +89,3 @@ if (Number.isInteger(parseInt(config.urls.port)))
 
 config.urls.base = `${config.urls.protocol}://${config.urls.url}${portString}`;
 config.urls.baseApi = `${config.urls.base}${config.urls.apiRoot}`;
-
-if (config.db.dialect === "sqlite") {
-  // sqlite dialect doesn't support timezone and crashes if we pass one (it is utc by default anyway)
-  delete config.db.timezone;
-}

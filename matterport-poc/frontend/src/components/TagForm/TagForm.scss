@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+@import '../../styles/buttons';
+@import '../../styles/mixins';
+
+.tag-form {
+  background-color: $ui-03;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+
+  .tag-form--coords {
+    width: 100%;
+    padding: 4px 0 8px 0;
+    display: flex;
+    align-items: center;
+  }
+  .tag-form--buttons {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}
