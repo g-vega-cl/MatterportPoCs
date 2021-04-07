@@ -27,8 +27,8 @@ const MatterportBox = () => {
       id="showcase_iframe"
       title="matter-iframe"
       ref={iframeRef}
-      width="853"
-      height="480"
+      width="100%"
+      height="100%"
       src="https://my.matterport.com/show?m=SxQL3iGyoDo&play=1"
       allow="vr"
     ></iframe>

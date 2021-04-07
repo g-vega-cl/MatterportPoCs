@@ -61,7 +61,7 @@ class TokenService {
   }
 
   public logOut() {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
       try {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
