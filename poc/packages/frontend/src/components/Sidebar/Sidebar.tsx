@@ -12,8 +12,8 @@ const SideBar: React.FC = () => {
   
     return (
       <AppBar position="static">
-        <div style={{height:"100%", backgroundColor:"red", width:"100%"}}>
-            <p>alskdalsdj</p>
+        <div style={{height:"99vh", backgroundColor:"red", width:"100%"}}>
+            <p>Dashboard</p>
         </div>
       </AppBar>
     );
