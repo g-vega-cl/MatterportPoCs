@@ -9,26 +9,11 @@ export interface IItem {
   normal: { x: number; y: number; z: number };
   media?: string;
   color: { r: number; g: number; b: number };
+  type?: string;
 }
 
 class ItemsService extends BaseService {
   private endpoint: string = "items/";
-
-  private reduceNormalVector = (normal: {
-    x: number;
-    y: number;
-    z: number;
-  }) => {
-    if (normal.x > 0.3) {
-      normal.x = 0.3;
-    } else if (normal.y > 0.3) {
-      normal.y = 0.3;
-    } else if (normal.z > 0.3) {
-      normal.z = 0.3;
-    }
-
-    return normal;
-  };
 
   public getItems(): Promise<IItem[]> {
     return this.doRequest({
@@ -54,6 +39,7 @@ class ItemsService extends BaseService {
     normal,
     media,
     color,
+    type,
   }: IItem): Promise<IItem> {
     return this.doRequest({
       baseURL: this.baseURL,
@@ -66,36 +52,37 @@ class ItemsService extends BaseService {
         normal,
         media,
         color,
+        type,
       },
       url: this.endpoint,
     }).then((response: any) => response.data);
   }
 
-  public updateItem({
-    id,
-    name,
-    description,
-    matterportId,
-    position,
-    normal,
-    media,
-    color,
-  }: IItem): Promise<IItem> {
-    return this.doRequest({
-      baseURL: this.baseURL,
-      method: "PUT",
-      data: {
-        name,
-        description,
-        matterportId,
-        position,
-        normal,
-        media,
-        color,
-      },
-      url: `${this.endpoint}${id}`,
-    }).then((response: any) => response.data);
-  }
+  // public updateItem({
+  //   id,
+  //   name,
+  //   description,
+  //   matterportId,
+  //   position,
+  //   normal,
+  //   media,
+  //   color,
+  // }: IItem): Promise<IItem> {
+  //   return this.doRequest({
+  //     baseURL: this.baseURL,
+  //     method: "PUT",
+  //     data: {
+  //       name,
+  //       description,
+  //       matterportId,
+  //       position,
+  //       normal,
+  //       media,
+  //       color,
+  //     },
+  //     url: `${this.endpoint}${id}`,
+  //   }).then((response: any) => response.data);
+  // }
 
   public deleteItem(id: number): Promise<any> {
     return this.doRequest({
