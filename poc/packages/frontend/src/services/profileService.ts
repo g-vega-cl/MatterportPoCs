@@ -10,11 +10,11 @@ export interface IProfile {
 class ProfileService extends BaseService {
   private endpoint: string = "profile/";
 
-  public getProfile(id: number): Promise<IProfile> {
+  public getProfile(): Promise<IProfile> {
     return this.doRequest({
       baseURL: this.baseURL,
       method: "GET",
-      url: `${this.endpoint}${id}`,
+      url: `${this.endpoint}`,
     }).then((response: any) => response.data);
   }
 
