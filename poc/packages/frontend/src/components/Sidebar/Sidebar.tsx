@@ -1,11 +1,11 @@
 import React, { useContext, useState, useRef } from 'react';
 import './Sidebar.scss';
-import { AppBar, Grid, TextField, Tooltip, Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { AppBar, Button, Grid, TextField, Tooltip, Typography } from '@material-ui/core';
 import { AuthenticationStore } from '../../modules/Authentication/store';
 import ItemsService, { IItem } from '../../services/itemsService';
 import { useMatterportService } from '../../services/useMatterportService';
 import { MatterSdkStore } from '../../modules/MatterportPage/store';
+import {AddItem} from 'components/AddItem/AddItem';
 
 interface ISidebarProps {
   coords: {
@@ -58,34 +58,14 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
     <AppBar position="static" style={{ height: '100%' }}>
       <div style={{ height: '100%', backgroundColor: 'red', width: '100%' }}>
         <p>Dashboard</p>
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <TextField onChange={updateValueName} label="Name" />
-          </Grid>
-          <Grid item xs={12}>
-            <>
-              <Tooltip title="Hover over an area for 1 second to get the coordinates">
-                <Typography variant="body1">Selected coordinates:</Typography>
-              </Tooltip>
-              <Typography variant="body1">{`x:${coords?.normal?.x.toFixed(
-                1,
-              )},  y:${coords?.normal?.y.toFixed(1)},  z:${coords?.normal?.z.toFixed(
-                1,
-              )}`}</Typography>
-            </>
-          </Grid>
-          <Grid item xs={12}>
-            <Tooltip title="Define a name to add an item">
-              <Button
-                variant="contained"
-                onClick={handleAddTag}
-                disabled={values.name ? false : true}
-              >
-                Add item
-              </Button>
-            </Tooltip>
-          </Grid>
-        </Grid>
+        <AddItem
+        coords = {coords}
+        handleAddTag = {handleAddTag}
+        updateValueName = {updateValueName}
+        values = {values}
+        >
+
+        </AddItem>
       </div>
     </AppBar>
   );
