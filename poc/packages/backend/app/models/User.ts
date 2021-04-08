@@ -111,6 +111,7 @@ export class User extends BaseModel<User> {
         time_zone: "America/Mexico_City",
         userId: this.id,
         locale: "es", // Defaults, this should be changed in auth controller on register.
+        role: this.role,
       }).then(() => {
         return null;
       }),

@@ -25,6 +25,12 @@ export class Profile extends BaseModel<Profile> {
   })
   locale: "en" | "es";
 
+  @Column({
+    type: DataType.ENUM("user", "admin"),
+    allowNull: false,
+  })
+  role: "user" | "admin";
+
   @ForeignKey(() => User)
   @Column
   userId: number;
