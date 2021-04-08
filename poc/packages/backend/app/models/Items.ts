@@ -52,6 +52,13 @@ export class Items extends BaseModel<Items> {
 
   @Column
   matterportId: string;
+  
+  @Column({
+    type: DataType.STRING,
+    allowNull: true,
+    defaultValue: null,
+  })
+  type: string;
 
   @ForeignKey(() => User)
   @Column
