@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProfileService from "./services/profileService";
 
 function App() {
-  console.log(ProfileService.getProfile(1));
+  console.log(ProfileService.getProfile());
   return (
     <div className="App">
       <AuthenticationProvider>
