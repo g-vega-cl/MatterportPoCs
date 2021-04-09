@@ -15,7 +15,7 @@ class ProfileService extends BaseService {
       baseURL: this.baseURL,
       method: "GET",
       url: `${this.endpoint}`,
-    }).then((response: any) => response.data);
+    }).then((response: any) => response.data[0]);
   }
 
 }

@@ -5,10 +5,8 @@ import AuthenticationModule from "./modules/Authentication";
 import MainLayout from "./components/MainLayout";
 import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ProfileService from "./services/profileService";
 
 function App() {
-  console.log(ProfileService.getProfile());
   return (
     <div className="App">
       <AuthenticationProvider>

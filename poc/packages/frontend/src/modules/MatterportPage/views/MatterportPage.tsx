@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState, useContext, useCallback } from 'rea
 import MatterportBox from 'components/MatterportBox';
 import Sidebar from 'components/Sidebar/Sidebar';
 import { makeStyles } from '@material-ui/core/styles';
-
 import ItemsService, { IItem } from '../../../services/itemsService';
 import useMatterportSdk from '../../../utils/hooks/matterport/useMatterPortSdk';
 import { useMatterportService } from '../../../services/useMatterportService';
@@ -13,11 +12,9 @@ import { MatterSdkStore } from '../store';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
     height: '100%',
   },
   sidebar: {
-    flexGrow: 1,
     height: '100%',
   },
 }));
@@ -29,17 +26,6 @@ interface TagCoords {
 
 const MatterportPage: React.FC<any> = () => {
   const { setSdk } = useContext(MatterSdkStore);
-  const [formMode, setFormMode] = useState<'ADD' | 'EDIT'>('EDIT');
-  const [itemToUpdate, setItemToUpdate] = useState<IItem>({
-    id: 0,
-    name: '',
-    description: '',
-    matterportId: '',
-    color: { r: 0, g: 0, b: 0 },
-    position: { ...BASE_COORDS },
-    normal: { ...BASE_COORDS },
-    type: '',
-  });
   const [items, setItems] = useState<any[]>([]);
   const [tagCoords, setTagCoords] = useState<TagCoords>({
     position: { ...BASE_COORDS },
@@ -84,7 +70,6 @@ const MatterportPage: React.FC<any> = () => {
       index++;
     }
     setItems(newItems);
-    console.log('deleteItem');
   };
 
   const classes = useStyles();
@@ -98,7 +83,7 @@ const MatterportPage: React.FC<any> = () => {
         />
       </Grid>
       <Grid item className={classes.sidebar} sm={2}>
-        <Sidebar coords={tagCoords} addItem={addItem} items ={items} />
+        <Sidebar coords={tagCoords} addItem={addItem} items={items} />
       </Grid>
     </Grid>
   );
