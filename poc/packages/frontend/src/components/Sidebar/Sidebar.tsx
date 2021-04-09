@@ -1,11 +1,12 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';
 import './Sidebar.scss';
-import { AppBar, Button, Grid, TextField, Tooltip, Typography } from '@material-ui/core';
-import { AuthenticationStore } from '../../modules/Authentication/store';
+import { AppBar } from '@material-ui/core';
 import ItemsService, { IItem } from '../../services/itemsService';
 import { useMatterportService } from '../../services/useMatterportService';
 import { MatterSdkStore } from '../../modules/MatterportPage/store';
-import {AddItem} from 'components/AddItem/AddItem';
+import { AddItem } from 'components/AddItem/AddItem';
+import ProfileService, { IProfile } from 'services/profileService';
+import { Typography } from '@material-ui/core';
 
 interface ISidebarProps {
   coords: {
@@ -18,14 +19,19 @@ interface ISidebarProps {
 
 const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
   console.log('items ', items);
-  const authStore = useContext(AuthenticationStore);
-  const { name, loggedIn, role } = authStore?.state?.user;
-  // console.log("authStore: ", authStore)
-  //! Check if authStore.state.user.role === admin. To add items
+  const [profile, setProfile] = useState<IProfile>();
+  const [type, setType] = useState('Light'); //! Get predetermined types.
+
+  useEffect(() => {
+    (async function callGetProfile() {
+      const response = await ProfileService.getProfile();
+      setProfile(response);
+    })();
+  }, [setProfile]);
+
   const initialFormValues = {
     name: '',
     description: '',
-    type: '',
   };
   const [values, setValues] = useState(initialFormValues);
   const { sdk } = useContext(MatterSdkStore);
@@ -41,6 +47,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
           ...values,
           ...coords,
           color: { r: 0, g: 0, b: 1.0 },
+          type,
         },
       ])
       .then((items: IItem[]) => {
@@ -56,16 +63,18 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
 
   return (
     <AppBar position="static" style={{ height: '100%' }}>
-      <div style={{ height: '100%', backgroundColor: 'red', width: '100%' }}>
-        <p>Dashboard</p>
-        <AddItem
-        coords = {coords}
-        handleAddTag = {handleAddTag}
-        updateValueName = {updateValueName}
-        values = {values}
-        >
-
-        </AddItem>
+      <div style={{ height: '100%', backgroundColor: 'red', width: '100%', paddingLeft: '10px' }}>
+        <Typography variant="h6">Dashboard</Typography>
+        {profile?.role && (
+          <AddItem
+            coords={coords}
+            handleAddTag={handleAddTag}
+            updateValueName={updateValueName}
+            values={values}
+            type = {type}
+            setType = {setType}
+          />
+        )}
       </div>
     </AppBar>
   );

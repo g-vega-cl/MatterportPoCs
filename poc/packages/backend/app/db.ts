@@ -62,7 +62,7 @@ export function printDBCreateSQL(): Promise<any> {
         // Clean output
         data = data.replace("Executing (default): ", "");
         if (data.indexOf("SHOW INDEX FROM") != -1) return;
-        console.log(data);
+        // console.log(data);
       },
     }),
   );

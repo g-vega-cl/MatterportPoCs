@@ -156,7 +156,7 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
               style={{ top: buttonPosition.y - 18, left: buttonPosition.x - 35 }}
               onClick={saveCoords}
             >
-              *** Add tag here ***
+              Get coordinates
             </button>
           </div>
         )}
