@@ -50,6 +50,18 @@ export class Items extends BaseModel<Items> {
   })
   normal: string;
 
+  @Column({
+    allowNull: true,
+    defaultValue: true,
+  })
+  isPowered: boolean;
+
+  @Column({
+    allowNull: true,
+    defaultValue: 0,
+  })
+  value: number;
+
   @Column
   matterportId: string;
   
