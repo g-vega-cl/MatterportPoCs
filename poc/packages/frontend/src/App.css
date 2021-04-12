@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+.App{
+  overflow: hidden;
+  overflow-y: hidden;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

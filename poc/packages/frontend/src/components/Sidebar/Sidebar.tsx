@@ -18,8 +18,7 @@ interface ISidebarProps {
   addItem: (item: IItem) => void;
 }
 
-const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
-  console.log('items ', items);
+const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem}) => {
   const [profile, setProfile] = useState<IProfile>();
   const [type, setType] = useState('Light'); //! Get predetermined types.
 
@@ -63,21 +62,21 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
   };
 
   return (
-    <AppBar position="static" style={{ height: '100%', width:'100%' }}>
-      <div style={{ height: '100%', backgroundColor: 'red'}}>
-        <div style={{marginLeft: '10px'}}>
-        <Typography variant="h6">Dashboard</Typography>
-        {profile?.role && (
-          <AddItem
-            coords={coords}
-            handleAddTag={handleAddTag}
-            updateValueName={updateValueName}
-            values={values}
-            type = {type}
-            setType = {setType}
-          />
-        )}
-        <ItemList items = {items}/>
+    <AppBar position="static" style={{ height: '100%', width: '100%' }}>
+      <div style={{ height: '100%', backgroundColor: 'red' }}>
+        <div style={{ marginLeft: '7px' }}>
+          <Typography variant="h6">Dashboard</Typography>
+          {profile?.role && (
+            <AddItem
+              coords={coords}
+              handleAddTag={handleAddTag}
+              updateValueName={updateValueName}
+              values={values}
+              type={type}
+              setType={setType}
+            />
+          )}
+          <ItemList items={items} sdk={sdk}/>
         </div>
       </div>
     </AppBar>
