@@ -12,8 +12,9 @@ interface IItemListProps {
 
 const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
   
-  const navigateToItemId = (id:number)=>{
-      console.log("navigateSDK", sdk.Mattertag.navigateToTag("5"), " id",id) //IS SID not ID
+  const navigateToItemId = (id:string)=>{
+      console.log(items);
+      console.log("navigateSDK"); //IS SID not ID
       sdk.Mattertag.navigateToTag(id.toString()).then((data:any) => console.log("return data: ",data));
   }
 
@@ -32,7 +33,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
               />
             </Grid>
             <Grid item xs={7}>
-                <Button  onClick={()=>navigateToItemId(item.id)}>{item.name}</Button>
+                <Button  onClick={()=>navigateToItemId(item.matterportId)}>{item.name}</Button>
             </Grid>
             <Grid item xs={2}>
               {item.type === 'Light' && <EmojiObjectsIcon />}
