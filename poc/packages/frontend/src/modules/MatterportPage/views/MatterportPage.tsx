@@ -12,10 +12,8 @@ import { MatterSdkStore } from '../store';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100%',
-  },
-  sidebar: {
-    height: '100%',
+    display:'flex',
+    justifyContent:'flex-end',
   },
 }));
 
@@ -74,7 +72,7 @@ const MatterportPage: React.FC<any> = () => {
 
   const classes = useStyles();
   return (
-    <Grid container className={classes.root} spacing={0}>
+    <Grid container className={classes.root} spacing={0} style={{height: "88vh"}}>
       <Grid item sm={10}>
         <MatterportBox //The main box
           setTagCoords={setTagCoords}
@@ -82,7 +80,7 @@ const MatterportPage: React.FC<any> = () => {
           iframeRef={iframeRef}
         />
       </Grid>
-      <Grid item className={classes.sidebar} sm={2}>
+      <Grid item sm={2}>
         <Sidebar coords={tagCoords} addItem={addItem} items={items} />
       </Grid>
     </Grid>

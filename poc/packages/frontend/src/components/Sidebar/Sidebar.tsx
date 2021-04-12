@@ -7,6 +7,7 @@ import { MatterSdkStore } from '../../modules/MatterportPage/store';
 import { AddItem } from 'components/AddItem/AddItem';
 import ProfileService, { IProfile } from 'services/profileService';
 import { Typography } from '@material-ui/core';
+import ItemList from 'components/ItemList/ItemList';
 
 interface ISidebarProps {
   coords: {
@@ -62,8 +63,9 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
   };
 
   return (
-    <AppBar position="static" style={{ height: '100%' }}>
-      <div style={{ height: '100%', backgroundColor: 'red', width: '100%', paddingLeft: '10px' }}>
+    <AppBar position="static" style={{ height: '100%', width:'100%' }}>
+      <div style={{ height: '100%', backgroundColor: 'red'}}>
+        <div style={{marginLeft: '10px'}}>
         <Typography variant="h6">Dashboard</Typography>
         {profile?.role && (
           <AddItem
@@ -75,6 +77,8 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem }) => {
             setType = {setType}
           />
         )}
+        <ItemList items = {items}/>
+        </div>
       </div>
     </AppBar>
   );
