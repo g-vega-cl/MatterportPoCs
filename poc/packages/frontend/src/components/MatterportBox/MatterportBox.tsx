@@ -123,7 +123,7 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
           setButtonPosition(position);
           setToggleAddButton(true);
           addButtonRef.current?.focus();
-        }, 1000),
+        }, 2500),
       );
     }
     return () => {
@@ -133,9 +133,9 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
   }, [sdk, intersectionCache, poseCache]);
 
   return (
-    <div className="column" style={{height: "100%"}}>
-      <div className="matter-box" style={{height: "100%"}}>
-        <div className="iframe-container" ref={iframeContainerRef} style={{height: "100%"}}>
+    <div className="column" style={{ height: '100%' }}>
+      <div className="matter-box" style={{ height: '100%' }}>
+        <div className="iframe-container" ref={iframeContainerRef} style={{ height: '100%' }}>
           <iframe
             className="matter-iframe"
             id="showcase_iframe"
@@ -153,7 +153,7 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
             <button
               ref={addButtonRef}
               className="add-label"
-              style={{ top: buttonPosition.y - 18, left: buttonPosition.x - 35 }}
+              style={{ top: buttonPosition.y - 5, left: buttonPosition.x - 15 }}
               onClick={saveCoords}
             >
               Get coordinates

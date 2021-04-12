@@ -71,16 +71,17 @@ const MatterportPage: React.FC<any> = () => {
   };
 
   const classes = useStyles();
+  
   return (
-    <Grid container className={classes.root} spacing={0} style={{height: "88vh"}}>
-      <Grid item sm={10}>
+    <Grid container className={classes.root} spacing={0} style={{height: "89vh"}}>
+      <Grid item lg={10} sm={8} md={9} xs = {12}>
         <MatterportBox //The main box
           setTagCoords={setTagCoords}
           onLoad={getItems}
           iframeRef={iframeRef}
         />
       </Grid>
-      <Grid item sm={2}>
+      <Grid item lg={2} sm={4} md={3} xs = {12}>
         <Sidebar coords={tagCoords} addItem={addItem} items={items} />
       </Grid>
     </Grid>
