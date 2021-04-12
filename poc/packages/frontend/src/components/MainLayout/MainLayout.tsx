@@ -35,7 +35,7 @@ const MainLayout: React.FC<any> = () => {
   };
 
   return (
-    <div className="main-layout" style={{height: "88vh"}}>
+    <div className="main-layout">
       <MatterSdkStoreProvider>
         <NavBar />
         <MatterportPage />
