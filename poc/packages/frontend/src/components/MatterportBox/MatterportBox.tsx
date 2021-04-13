@@ -123,7 +123,7 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
           setButtonPosition(position);
           setToggleAddButton(true);
           addButtonRef.current?.focus();
-        }, 2500),
+        }, 2000),
       );
     }
     return () => {

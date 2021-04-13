@@ -36,7 +36,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService,deleteIte
       {items.map((item: any, index: number) => {
         return (
           <>
-            <Grid item xs={2} style={{ marginRight: '15px', marginTop:'7px' }}>
+            <Grid item xs={2} style={{ marginRight: '15px' }}>
               <Switch
                 // checked={checkedB}
                 // onChange={}
@@ -45,10 +45,10 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService,deleteIte
                 size="small"
               />
             </Grid>
-            <Grid item xs={6} style={{marginTop:'7px'}}>
+            <Grid item xs={6}>
                 <Button  onClick={()=>navigateToItemId(item.matterportId)}>{item.name}</Button>
             </Grid>
-            <Grid item xs={1} style={{marginTop:'7px'}}>
+            <Grid item xs={1}>
               {item.type === 'Light' && <EmojiObjectsIcon />}
               {item.type === 'Tv' && <TvIcon />}
               {item.type === 'Thermostat' && <AcUnitIcon />}
