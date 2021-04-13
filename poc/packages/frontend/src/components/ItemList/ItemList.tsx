@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Grid, Switch, Typography } from '@material-ui/core';
+import { Button, Grid, Slider, Switch, Typography } from '@material-ui/core';
 
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import TvIcon from '@material-ui/icons/Tv';
@@ -32,21 +32,67 @@ const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
       type: item.type
     });
   }
+
+  const MySlider = (item: IItem) => {
+    const [temp, setTemp] = useState(item.value);
+    const changeSliderState = (val: number) => {
+      setTemp(val);
+      console.log(val);
+      item.value = temp;
+      handleSwitchChange(item);
+    }
+    return (
+      <React.Fragment>
+        <Grid item xs={9}>
+          <Button onClick={() => navigateToItemId(item.id)}>{item.name}</Button>
+        </Grid>
+        <Grid item xs={2}>
+          {item.type === 'Light' && <EmojiObjectsIcon />}
+          {item.type === 'Tv' && <TvIcon />}
+          {item.type === 'Thermostat' && <AcUnitIcon />}
+        </Grid>
+        <Grid item xs={11} style={{ marginRight: '15px' }}>
+          <Slider
+            defaultValue={temp}
+            aria-labelledby="discrete-slider"
+            valueLabelDisplay="auto"
+            onChange={() => changeSliderState(temp)}
+            step={1}
+            marks
+            min={0}
+            max={110}
+          />
+        </Grid>
+      </React.Fragment>);
+
+  }
+
   const MySwitch = (item: IItem) => {
     const [isOn, setOn] = useState(item.isPowered);
     const changeSwitchState = (item: IItem) => {
       setOn(!isOn);
       handleSwitchChange(item);
     }
-    return (<Grid item xs={2} style={{ marginRight: '15px' }}>
-      <Switch
-        checked={isOn}
-        onChange={() => changeSwitchState(item)}
-        name={`switch-${item.id}`}
-        color="primary"
-        size="small"
-      />
-    </Grid>);
+    return (
+      <React.Fragment>
+        <Grid item xs={2} style={{ marginRight: '15px' }}>
+          <Switch
+            checked={isOn}
+            onChange={() => changeSwitchState(item)}
+            name={`switch-${item.id}`}
+            color="primary"
+            size="small"
+          />
+        </Grid>
+        <Grid item xs={7}>
+          <Button onClick={() => navigateToItemId(item.id)}>{item.name}</Button>
+        </Grid>
+        <Grid item xs={2}>
+          {item.type === 'Light' && <EmojiObjectsIcon />}
+          {item.type === 'Tv' && <TvIcon />}
+          {item.type === 'Thermostat' && <AcUnitIcon />}
+        </Grid>
+      </React.Fragment>);
   }
 
   return (
@@ -55,16 +101,8 @@ const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
         return (
           <>
 
-            {MySwitch(item)}
+            {item.type === "Thermostat" ? MySlider(item) : MySwitch(item)}
 
-            <Grid item xs={7}>
-              <Button onClick={() => navigateToItemId(item.id)}>{item.name}</Button>
-            </Grid>
-            <Grid item xs={2}>
-              {item.type === 'Light' && <EmojiObjectsIcon />}
-              {item.type === 'Tv' && <TvIcon />}
-              {item.type === 'Thermostat' && <AcUnitIcon />}
-            </Grid>
           </>
         );
       })}
