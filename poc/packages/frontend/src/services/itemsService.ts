@@ -7,8 +7,6 @@ export interface IItem {
   description: string;
   position: { x: number; y: number; z: number };
   normal: { x: number; y: number; z: number };
-  value: number;
-  isPowered: boolean;
   media?: string;
   color: { r: number; g: number; b: number };
   type?: string;
@@ -33,46 +31,12 @@ class ItemsService extends BaseService {
     }).then((response: any) => response.data);
   }
 
-  public updateItem({
-    id,
-    name,
-    description,
-    matterportId,
-    position,
-    normal,
-    value,
-    isPowered,
-    media,
-    color,
-    type,
-  }: IItem): Promise<IItem> {
-    return this.doRequest({
-      baseURL: this.baseURL,
-      method: "PUT",
-      data: {
-        name,
-        description,
-        matterportId,
-        position,
-        normal,
-        value,
-        isPowered,
-        media,
-        color,
-        type,
-      },
-      url: `${this.endpoint}${id}`,
-    }).then((response: any) => response.data);
-  }
-
   public createItem({
     name,
     description,
     matterportId,
     position,
     normal,
-    value,
-    isPowered,
     media,
     color,
     type,
@@ -86,8 +50,6 @@ class ItemsService extends BaseService {
         matterportId,
         position,
         normal,
-        value,
-        isPowered,
         media,
         color,
         type,
@@ -95,8 +57,6 @@ class ItemsService extends BaseService {
       url: this.endpoint,
     }).then((response: any) => response.data);
   }
-
-  
 
   // public updateItem({
   //   id,
