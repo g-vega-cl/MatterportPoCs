@@ -15,10 +15,11 @@ interface ISidebarProps {
     normal: { x: number; y: number; z: number };
   };
   items: any;
+  deleteItem: (id:number) => void; 
   addItem: (item: IItem) => void;
 }
 
-const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem}) => {
+const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem}) => {
   const [profile, setProfile] = useState<IProfile>();
   const [type, setType] = useState('Light'); //! Get predetermined types.
 
@@ -63,7 +64,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem}) => {
 
   return (
     <AppBar position="static" style={{ height: '100%', width: '100%' }}>
-      <div style={{ height: '100%', backgroundColor: 'red' }}>
+      <div style={{ height: '100%', backgroundColor: '#ff3158' }}>
         <div style={{ marginLeft: '7px' }}>
           <Typography variant="h6">Dashboard</Typography>
           {profile?.role && (
@@ -76,7 +77,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem}) => {
               setType={setType}
             />
           )}
-          <ItemList items={items} matterPortService={matterPortService}/>
+          <ItemList items={items} matterPortService={matterPortService} deleteItem={deleteItem}/>
         </div>
       </div>
     </AppBar>
