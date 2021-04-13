@@ -43,15 +43,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
     };
     return (
       <React.Fragment>
-        <Grid item xs={9}>
-          <Button onClick={() => navigateToItemId(item.matterportId)}>{item.name}</Button>
-        </Grid>
-        <Grid item xs={2}>
-          {item.type === 'Light' && <EmojiObjectsIcon />}
-          {item.type === 'Tv' && <TvIcon />}
-          {item.type === 'Thermostat' && <AcUnitIcon />}
-        </Grid>
-        <Grid item xs={11} style={{ marginRight: '15px' }}>
+          <Grid item xs={3} style={{ marginRight: '15px', marginLeft:'7px', marginTop:'10px' }}>
           <Slider
             defaultValue={temp}
             aria-labelledby="discrete-slider"
@@ -61,7 +53,22 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
             marks
             min={0}
             max={110}
+            style={{marginLeft:'11px'}}
           />
+        </Grid>
+        <Grid item xs={5}>
+          <Button onClick={() => navigateToItemId(item.matterportId)} style={{marginTop:'6px'}}>{item.name}</Button>
+        </Grid>
+
+        <Grid item xs={1} style={{marginTop:'6px'}}>
+          {item.type === 'Light' && <EmojiObjectsIcon />}
+          {item.type === 'Tv' && <TvIcon />}
+          {item.type === 'Thermostat' && <AcUnitIcon />}
+        </Grid>
+        <Grid item xs={1}>
+          <Button onClick={(e) => handleDeleteItem(e, item.id, item.matterportId)}>
+            <DeleteIcon />
+          </Button>
         </Grid>
       </React.Fragment>
     );
@@ -75,7 +82,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
     };
     return (
       <React.Fragment>
-        <Grid item xs={2} style={{ marginRight: '15px' }}>
+        <Grid item xs={3} style={{ marginRight: '15px', marginLeft:'7px', marginTop:'10px' }}>
           <Switch
             checked={isOn}
             onChange={() => changeSwitchState(item)}
@@ -84,10 +91,10 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
             size="small"
           />
         </Grid>
-        <Grid item xs={6}>
-          <Button onClick={() => navigateToItemId(item.matterportId)}>{item.name}</Button>
+        <Grid item xs={5}>
+          <Button onClick={() => navigateToItemId(item.matterportId)} style={{marginTop:'6px'}}>{item.name}</Button>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs={1} style={{marginTop:'6px'}}>
           {item.type === 'Light' && <EmojiObjectsIcon />}
           {item.type === 'Tv' && <TvIcon />}
           {item.type === 'Thermostat' && <AcUnitIcon />}
