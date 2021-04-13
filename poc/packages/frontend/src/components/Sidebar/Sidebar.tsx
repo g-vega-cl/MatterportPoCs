@@ -76,7 +76,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem}) => {
               setType={setType}
             />
           )}
-          <ItemList items={items} sdk={sdk}/>
+          <ItemList items={items} matterPortService={matterPortService}/>
         </div>
       </div>
     </AppBar>

@@ -7,15 +7,13 @@ import AcUnitIcon from '@material-ui/icons/AcUnit';
 
 interface IItemListProps {
   items: any;
-  sdk: any;
+  matterPortService: any;
 }
 
-const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
+const ItemList: React.FC<IItemListProps> = ({ items, matterPortService }) => {
   
-  const navigateToItemId = (id:string)=>{
-      console.log(items);
-      console.log("navigateSDK"); //IS SID not ID
-      sdk.Mattertag.navigateToTag(id.toString()).then((data:any) => console.log("return data: ",data));
+  const navigateToItemId = (matterportId:string)=>{
+      matterPortService.navigateToTag(matterportId);
   }
 
   return (
