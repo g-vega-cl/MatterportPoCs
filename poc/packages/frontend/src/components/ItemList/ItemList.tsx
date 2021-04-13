@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, Switch, Typography } from '@material-ui/core';
 
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
@@ -12,9 +12,9 @@ interface IItemListProps {
 }
 
 const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
-  const navigateToItemId = (id:number)=>{
-      console.log("navigateSDK", sdk.Mattertag.navigateToTag("5"), " id",id) //IS SID not ID
-      sdk.Mattertag.navigateToTag(id.toString()).then((data:any) => console.log("return data: ",data));
+  const navigateToItemId = (id: number) => {
+    console.log("navigateSDK", sdk.Mattertag.navigateToTag("5"), " id", id) //IS SID not ID
+    sdk.Mattertag.navigateToTag(id.toString()).then((data: any) => console.log("return data: ", data));
   }
 
   const handleSwitchChange = (item: IItem) => {
@@ -32,28 +32,33 @@ const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
       type: item.type
     });
   }
+  const MySwitch = (item: IItem) => {
+    const [isOn, setOn] = useState(item.isPowered);
+    const changeSwitchState = (item: IItem) => {
+      setOn(!isOn);
+      handleSwitchChange(item);
+    }
+    return (<Grid item xs={2} style={{ marginRight: '15px' }}>
+      <Switch
+        checked={isOn}
+        onChange={() => changeSwitchState(item)}
+        name={`switch-${item.id}`}
+        color="primary"
+        size="small"
+      />
+    </Grid>);
+  }
 
   return (
     <Grid container spacing={1} justify="flex-end" alignItems="center">
       {items.map((item: IItem, index: number) => {
-        let isPow = item.isPowered;
-        const changeSwitchState = () => {
-          handleSwitchChange(item);
-          isPow = !isPow;
-        }
         return (
           <>
-            <Grid item xs={2} style={{ marginRight: '15px' }}>
-              <Switch
-                checked={isPow}
-                onChange={()=>changeSwitchState()}
-                name={`switch-${index}`}
-                color="primary"
-                size="small"
-              />
-            </Grid>
+
+            {MySwitch(item)}
+
             <Grid item xs={7}>
-                <Button  onClick={()=>navigateToItemId(item.id)}>{item.name}</Button>
+              <Button onClick={() => navigateToItemId(item.id)}>{item.name}</Button>
             </Grid>
             <Grid item xs={2}>
               {item.type === 'Light' && <EmojiObjectsIcon />}
