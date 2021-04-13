@@ -4,6 +4,7 @@ import { Button, Grid, Switch, Typography } from '@material-ui/core';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import TvIcon from '@material-ui/icons/Tv';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
+import ItemsService, { IItem } from 'services/itemsService';
 
 interface IItemListProps {
   items: any;
@@ -11,21 +12,41 @@ interface IItemListProps {
 }
 
 const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
-  
   const navigateToItemId = (id:number)=>{
       console.log("navigateSDK", sdk.Mattertag.navigateToTag("5"), " id",id) //IS SID not ID
       sdk.Mattertag.navigateToTag(id.toString()).then((data:any) => console.log("return data: ",data));
   }
 
+  const handleSwitchChange = (item: IItem) => {
+    ItemsService.updateItem({
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      matterportId: item.matterportId,
+      position: item.position,
+      normal: item.normal,
+      value: item.value,
+      isPowered: !item.isPowered,
+      media: item.media,
+      color: item.color,
+      type: item.type
+    });
+  }
+
   return (
     <Grid container spacing={1} justify="flex-end" alignItems="center">
-      {items.map((item: any, index: number) => {
+      {items.map((item: IItem, index: number) => {
+        let isPow = item.isPowered;
+        const changeSwitchState = () => {
+          handleSwitchChange(item);
+          isPow = !isPow;
+        }
         return (
           <>
             <Grid item xs={2} style={{ marginRight: '15px' }}>
               <Switch
-                // checked={checkedB}
-                // onChange={}
+                checked={isPow}
+                onChange={()=>changeSwitchState()}
                 name={`switch-${index}`}
                 color="primary"
                 size="small"

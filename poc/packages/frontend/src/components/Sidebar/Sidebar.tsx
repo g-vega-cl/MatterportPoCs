@@ -39,6 +39,8 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem}) => {
 
   const handleAddTag = () => {
     if (!matterPortService) return;
+    const value = type === "Thermostat" ? 0 : -1;
+    const isPowered = false;
     matterPortService
       .addTags([
         {
@@ -46,6 +48,8 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem}) => {
           matterportId: '404',
           ...values,
           ...coords,
+          isPowered,
+          value,
           color: { r: 0, g: 0, b: 1.0 },
           type,
         },
