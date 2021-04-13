@@ -35,10 +35,10 @@ const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
 
   const MySlider = (item: IItem) => {
     const [temp, setTemp] = useState(item.value);
-    const changeSliderState = (val: number) => {
-      setTemp(val);
-      console.log(val);
-      item.value = temp;
+    const changeSliderState = (event: any, newValue: number) => {
+      setTemp(newValue);
+      console.log(newValue);
+      item.value = newValue;
       handleSwitchChange(item);
     }
     return (
@@ -53,13 +53,13 @@ const ItemList: React.FC<IItemListProps> = ({ items, sdk }) => {
         </Grid>
         <Grid item xs={11} style={{ marginRight: '15px' }}>
           <Slider
-            defaultValue={temp}
+            value={temp}
             aria-labelledby="discrete-slider"
             valueLabelDisplay="auto"
-            onChange={() => changeSliderState(temp)}
+            onChange={changeSliderState}
             step={1}
             marks
-            min={0}
+            min={1}
             max={110}
           />
         </Grid>
