@@ -52,7 +52,7 @@ export class Items extends BaseModel<Items> {
 
   @Column({
     allowNull: true,
-    defaultValue: true,
+    defaultValue: false,
   })
   isPowered: boolean;
 
