@@ -9,7 +9,7 @@ import useMatterportSdk from '../../../utils/hooks/matterport/useMatterPortSdk';
 import { useMatterportService } from '../../../services/useMatterportService';
 import { BASE_COORDS, CoordsPoint, MATTERPORT_CONNECTION } from '../constants';
 import { MatterSdkStore } from '../store';
-
+import UserService from "services/userService";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,12 +33,17 @@ const MatterportPage: React.FC<any> = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { sdk } = useMatterportSdk({ ...MATTERPORT_CONNECTION, iframeRef });
   const matterPortService = useMatterportService(sdk);
+  
 
   useEffect(() => {
     if (!!sdk) {
       setSdk(sdk);
     }
   }, [sdk, setSdk]);
+
+  useEffect(()=>{
+    const currentUser = UserService.getUser()
+  },[])
 
   const getItems = useCallback(() => {
     if (!matterPortService) return;
@@ -112,8 +117,8 @@ const MatterportPage: React.FC<any> = () => {
   const classes = useStyles();
   
   return (
-    <Grid container className={classes.root} spacing={0} style={{height: "89vh"}}>
-      <Grid item lg={9} md={8} sm={7} xs = {12} style={{height: "89vh"}}>
+    <Grid container className={classes.root} spacing={0} style={{height: "92vh"}}>
+      <Grid item lg={9} md={8} sm={7} xs = {12} style={{height: "92vh"}}>
         <MatterportBox //The main box
           setTagCoords={setTagCoords}
           onLoad={getItems}

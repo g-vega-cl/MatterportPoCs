@@ -4,7 +4,8 @@
 
 .App{
   overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow-y: hidden;
 }
 
 .App-logo {

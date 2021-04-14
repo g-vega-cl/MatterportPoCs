@@ -90,6 +90,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
                   variant="outlined"
                   value={itemsValues[index]?.temp}
                   onChange={updateItemValue(index,item.type)}
+                  style={{width:'50px'}}
                 />
               )}
             </Grid>

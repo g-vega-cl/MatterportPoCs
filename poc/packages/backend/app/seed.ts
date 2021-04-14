@@ -15,6 +15,15 @@ function seed(): PromiseLike<any> {
         password: "adminadmin",
         role: "admin",
       });
+    
+    if (count === 1)
+      return User.create({
+        name: "User",
+        email: "user@example.com",
+        password: "useruser",
+        role: "user",
+      });
+    
     return null;
   });
 }

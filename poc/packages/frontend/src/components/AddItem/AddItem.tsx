@@ -34,7 +34,7 @@ export const AddItem: React.FC<IAddItemInterface> = ({
     setType(event.target.value);
   };
 
-  const buttonsWidth = "318px";
+  const buttonsWidth = "265px";
 
   return (
     <Grid container spacing={1}>
