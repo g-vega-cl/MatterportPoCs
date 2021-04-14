@@ -3,8 +3,8 @@
 }
 
 .App{
-  overflow: hidden;
-  overflow-y: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .App-logo {
