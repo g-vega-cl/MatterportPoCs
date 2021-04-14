@@ -39,7 +39,7 @@ export const AddItem: React.FC<IAddItemInterface> = ({
   return (
     <Grid container spacing={1}>
       <Grid item xs={12}>
-        <TextField onChange={updateValueName} label="Name" />
+        <TextField onChange={updateValueName} label="Name" style={{width:buttonsWidth}} />
       </Grid>
       <Grid item xs={12} style={{marginBottom: "5px"}}>
         <>

@@ -113,14 +113,14 @@ const MatterportPage: React.FC<any> = () => {
   
   return (
     <Grid container className={classes.root} spacing={0} style={{height: "89vh"}}>
-      <Grid item lg={9} md={8} sm={7} xs = {12}>
+      <Grid item lg={9} md={8} sm={7} xs = {12} style={{height: "89vh"}}>
         <MatterportBox //The main box
           setTagCoords={setTagCoords}
           onLoad={getItems}
           iframeRef={iframeRef}
         />
       </Grid>
-      <Grid item lg={3} md={4} sm={5} xs = {12}>
+      <Grid item lg={3} md={4} sm={5} xs = {12} className="sidebar-grid" style={{height: "89vh"}}>
         <Sidebar coords={tagCoords} addItem={addItem} items={items} deleteItem={deleteItem} />
       </Grid>
     </Grid>

@@ -65,7 +65,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem})
   return (
     <AppBar position="static" style={{ height: '100%', width: '100%' }}>
       <div style={{ height: '100%', backgroundColor: '#ff3158' }}>
-        <div style={{ marginLeft: '7px' }}>
+        <div style={{ paddingLeft: '7px',backgroundColor: '#ff3158'  }}>
           <Typography variant="h6">Dashboard</Typography>
           {profile?.role && (
             <AddItem
