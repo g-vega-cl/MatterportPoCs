@@ -6,6 +6,7 @@ import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
 import TvIcon from '@material-ui/icons/Tv';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import WbSunnyIcon from '@material-ui/icons/WbSunny';
 
 interface IItemListProps {
   items: any;
@@ -23,9 +24,8 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
     const initialItemsValues: any[] = [];
     if (firstPopulation.current) {
       items.forEach((item: any) => {
-        console.log('item in foreach ', item);
         if (item.type === 'Thermostat') {
-          initialItemsValues.push(25);
+          initialItemsValues.push({'temp':25, 'mode':'Cold'});
         } else {
           initialItemsValues.push(false);
         }
@@ -60,11 +60,16 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
         newItemsValues[index] = !newItemsValues[index];
         setItemsValues(newItemsValues);
       } else{
-        newItemsValues[index] = e.target.value;
+        newItemsValues[index].temp = e.target.value;
         setItemsValues(newItemsValues);
       }
-      
   };
+
+  const toggleACMode = (index:number) => (e:any) =>{
+    const newItemsValues = [...itemsValues];
+    newItemsValues[index].mode = newItemsValues[index].mode == "Cold" ? "Hot" : "Cold";
+    setItemsValues(newItemsValues);
+  }
 
   return (
     <Grid container style={{ marginTop: '5px' }}>
@@ -85,7 +90,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
                   id={`outlined-basic-${index}`}
                   label={`C°`}
                   variant="outlined"
-                  value={itemsValues[index]}
+                  value={itemsValues[index]?.temp}
                   onChange={updateItemValue(index,item.type)}
                 />
               )}
@@ -96,7 +101,12 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
             <Grid item xs={1} style={{ marginTop: '6px' }}>
               {item.type === 'Light' && <EmojiObjectsIcon />}
               {item.type === 'Tv' && <TvIcon />}
-              {item.type === 'Thermostat' && <AcUnitIcon />}
+              {item.type === 'Thermostat' && 
+              <Button onClick={toggleACMode(index)}>
+              {itemsValues[index]?.mode == "Cold" ? <AcUnitIcon /> : <WbSunnyIcon/> }
+              </Button>
+              
+              }
             </Grid>
             <Grid item xs={1}>
               <Button onClick={(e) => handleDeleteItem(e, item.id, item.matterportId)}>
