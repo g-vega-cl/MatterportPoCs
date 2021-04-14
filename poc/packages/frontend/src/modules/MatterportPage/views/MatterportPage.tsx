@@ -1,5 +1,5 @@
 import './MatterportPage.scss';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import React, { useEffect, useRef, useState, useContext, useCallback } from 'react';
 import MatterportBox from 'components/MatterportBox';
 import Sidebar from 'components/Sidebar/Sidebar';
@@ -9,6 +9,8 @@ import useMatterportSdk from '../../../utils/hooks/matterport/useMatterPortSdk';
 import { useMatterportService } from '../../../services/useMatterportService';
 import { BASE_COORDS, CoordsPoint, MATTERPORT_CONNECTION } from '../constants';
 import { MatterSdkStore } from '../store';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +57,26 @@ const MatterportPage: React.FC<any> = () => {
     });
   };
 
+  useEffect(()=>{
+    if(sdk){
+      if(sdk.Mattertag){
+        items.forEach((item)=>{
+          if(item.type === "Light"){
+            sdk?.Mattertag.getData().then((data:any)=>{
+              let currentSID = data[0]?.sid;
+              sdk.Mattertag.registerIcon('88889', 'https://img.icons8.com/cotton/64/000000/innovation.png').then((empty:any)=>{
+                console.log("iconRegistered", empty)
+                sdk.Mattertag.editIcon(currentSID, '88889');
+              }).then((empty:any)=>{
+                console.log("Icon edited ", empty);
+              })
+            })
+          }
+        })
+      }
+    };
+  },[items])
+
   const deleteItem = (id: number) => {
     let deleted: boolean = false;
     let index = 0;
@@ -69,7 +91,26 @@ const MatterportPage: React.FC<any> = () => {
     setItems(newItems);
   };
 
-  console.log("Mattertag sdk ", sdk?.Mattertag)
+
+  // const registerSID =()=>{
+  //   if(sdk){
+  //     if(sdk.Mattertag){
+  //       if(item.type === "Light"){
+  //         sdk?.Mattertag.getData().then((data:any)=>{
+  //           let currentSID = data[0]?.sid;
+  //           sdk.Mattertag.registerIcon('88889', 'https://img.icons8.com/cotton/64/000000/innovation.png').then((empty:any)=>{
+  //             console.log("iconRegistered", empty)
+  //             sdk.Mattertag.editIcon(currentSID, '88889');
+  //           }).then((empty:any)=>{
+  //             console.log("Icon edited ", empty);
+  //           })
+  //         })
+  //       }
+  //     }
+  //   };
+  // }
+
+  
 
   const classes = useStyles();
   
@@ -85,6 +126,9 @@ const MatterportPage: React.FC<any> = () => {
       <Grid item lg={3} md={4} sm={5} xs = {12}>
         <Sidebar coords={tagCoords} addItem={addItem} items={items} deleteItem={deleteItem} />
       </Grid>
+      {/* <Grid item xs = {1} style={{backgroundColor:'green'}}>
+        <Button onClick={registerSID}>REGISTER SID <img src={"https://img.icons8.com/cotton/64/000000/innovation.png"} alt="Logo" style={{height:'50px', width:'50px'}}/>;</Button>
+      </Grid> */}
     </Grid>
   );
 };
