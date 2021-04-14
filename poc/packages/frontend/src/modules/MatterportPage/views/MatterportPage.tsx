@@ -61,17 +61,36 @@ const MatterportPage: React.FC<any> = () => {
     if(sdk){
       if(sdk.Mattertag){
         items.forEach((item)=>{
-          if(item.type === "Light"){
-            sdk?.Mattertag.getData().then((data:any)=>{
-              let currentSID = data[0]?.sid;
-              sdk.Mattertag.registerIcon('88889', 'https://img.icons8.com/cotton/64/000000/innovation.png').then((empty:any)=>{
-                console.log("iconRegistered", empty)
-                sdk.Mattertag.editIcon(currentSID, '88889');
-              }).then((empty:any)=>{
-                console.log("Icon edited ", empty);
+          switch(item.type){
+            case "Light":
+              sdk?.Mattertag.getData().then((data:any)=>{
+                let currentSID = data[0]?.sid;
+                sdk.Mattertag.registerIcon('88889', 'https://img.icons8.com/cotton/64/000000/innovation.png').then((empty:any)=>{
+                  sdk.Mattertag.editIcon(currentSID, '88889');
+                })
               })
-            })
+              break;
+            case "Thermostat":
+              sdk?.Mattertag.getData().then((data:any)=>{
+                let currentSID = data[0]?.sid;
+                sdk.Mattertag.registerIcon('88890', 'https://img.icons8.com/pastel-glyph/64/000000/air-conditioner--v2.png').then((empty:any)=>{
+                  sdk.Mattertag.editIcon(currentSID, '88890');
+                })
+              })
+              break;
+            case "Tv":
+              sdk?.Mattertag.getData().then((data:any)=>{
+                let currentSID = data[0]?.sid;
+                sdk.Mattertag.registerIcon('88891', 'ttps://img.icons8.com/android/24/000000/retro-tv.png').then((empty:any)=>{
+                  sdk.Mattertag.editIcon(currentSID, '88891');
+                })
+              })
+              break;
+            default:
+              break;
           }
+            
+          
         })
       }
     };
