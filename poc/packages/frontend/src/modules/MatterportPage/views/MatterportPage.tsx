@@ -1,5 +1,5 @@
 import './MatterportPage.scss';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import React, { useEffect, useRef, useState, useContext, useCallback } from 'react';
 import MatterportBox from 'components/MatterportBox';
 import Sidebar from 'components/Sidebar/Sidebar';
@@ -9,6 +9,8 @@ import useMatterportSdk from '../../../utils/hooks/matterport/useMatterPortSdk';
 import { useMatterportService } from '../../../services/useMatterportService';
 import { BASE_COORDS, CoordsPoint, MATTERPORT_CONNECTION } from '../constants';
 import { MatterSdkStore } from '../store';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +57,42 @@ const MatterportPage: React.FC<any> = () => {
     });
   };
 
+  //Images taken from https://icons8.com/icons/
+  useEffect(()=>{
+    if(sdk){
+      if(sdk.Mattertag){
+        items.forEach((item)=>{
+          console.log("item ", item)
+          switch(item.type){
+            case "Light":
+              sdk?.Mattertag.getData().then((data:any)=>{
+                sdk.Mattertag.registerIcon('88889', 'https://img.icons8.com/cotton/64/000000/innovation.png').then((empty:any)=>{
+                  sdk.Mattertag.editIcon(item.matterportId, '88889');
+                })
+              })
+              break;
+            case "Thermostat":
+              sdk?.Mattertag.getData().then((data:any)=>{
+                sdk.Mattertag.registerIcon('88890', 'https://img.icons8.com/doodle/48/000000/air-conditioner.png').then((empty:any)=>{
+                  sdk.Mattertag.editIcon(item.matterportId, '88890');
+                })
+              })
+              break;
+            case "Tv":
+              sdk?.Mattertag.getData().then((data:any)=>{
+                sdk.Mattertag.registerIcon('88891', 'https://img.icons8.com/plasticine/100/000000/retro-tv.png').then((empty:any)=>{
+                  sdk.Mattertag.editIcon(item.matterportId, '88891');
+                })
+              })
+              break;
+            default:
+              break;
+          }
+        })
+      }
+    };
+  },[items])
+
   const deleteItem = (id: number) => {
     let deleted: boolean = false;
     let index = 0;
@@ -69,7 +107,7 @@ const MatterportPage: React.FC<any> = () => {
     setItems(newItems);
   };
 
-  console.log("Mattertag sdk ", sdk?.Mattertag)
+  
 
   const classes = useStyles();
   
