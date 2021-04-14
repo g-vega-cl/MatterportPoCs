@@ -54,10 +54,16 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
   };
 
   //! Pretty function with many parameters.
-  const updateItemValue = (index:number) => (e: any) => {
+  const updateItemValue = (index:number, type:string) => (e: any) => {
       const newItemsValues = [...itemsValues];
-      newItemsValues[index] = e.target.value;
-      setItemsValues(newItemsValues);
+      if(type !== "Thermostat"){
+        newItemsValues[index] = !newItemsValues[index];
+        setItemsValues(newItemsValues);
+      } else{
+        newItemsValues[index] = e.target.value;
+        setItemsValues(newItemsValues);
+      }
+      
   };
 
   return (
@@ -69,7 +75,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
               {item.type !== 'Thermostat' ? (
                 <Switch
                   checked={itemsValues[index]}
-                  onChange={updateItemValue(index)}
+                  onChange={updateItemValue(index,item.type)}
                   name={`switch-${index}`}
                   color="primary"
                   size="small"
@@ -80,7 +86,7 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
                   label={`C°`}
                   variant="outlined"
                   value={itemsValues[index]}
-                  onChange={updateItemValue(index)}
+                  onChange={updateItemValue(index,item.type)}
                 />
               )}
             </Grid>
