@@ -69,6 +69,8 @@ const MatterportPage: React.FC<any> = () => {
     setItems(newItems);
   };
 
+  console.log("Mattertag sdk ", sdk?.Mattertag)
+
   const classes = useStyles();
   
   return (

@@ -35,8 +35,6 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
     }
   }, [setItemsValues, items]);
 
-  console.log('items values ', itemsValues);
-
   const navigateToItemId = (matterportId: string) => {
     matterPortService.navigateToTag(matterportId);
   };
@@ -102,13 +100,13 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
               {item.type === 'Light' && <EmojiObjectsIcon />}
               {item.type === 'Tv' && <TvIcon />}
               {item.type === 'Thermostat' && 
-              <Button onClick={toggleACMode(index)}>
+              <Button onClick={toggleACMode(index)} style={{marginLeft:'-20px'}}>
               {itemsValues[index]?.mode == "Cold" ? <AcUnitIcon /> : <WbSunnyIcon/> }
               </Button>
               
               }
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={1} style={{marginTop:'3px'}}>
               <Button onClick={(e) => handleDeleteItem(e, item.id, item.matterportId)}>
                 <DeleteIcon />
               </Button>
