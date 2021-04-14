@@ -97,7 +97,7 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
             clearTimeout(containerButtonTimeOut);
             setToggleAddButton(false);
           }
-        }, 200),
+        }, 300),
       );
     }
     // We don't want an infinite loop and onlye want to know if we are being hovered

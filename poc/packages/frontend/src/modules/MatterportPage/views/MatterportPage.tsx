@@ -88,8 +88,6 @@ const MatterportPage: React.FC<any> = () => {
             default:
               break;
           }
-            
-          
         })
       }
     };
@@ -109,25 +107,6 @@ const MatterportPage: React.FC<any> = () => {
     setItems(newItems);
   };
 
-
-  // const registerSID =()=>{
-  //   if(sdk){
-  //     if(sdk.Mattertag){
-  //       if(item.type === "Light"){
-  //         sdk?.Mattertag.getData().then((data:any)=>{
-  //           let currentSID = data[0]?.sid;
-  //           sdk.Mattertag.registerIcon('88889', 'https://img.icons8.com/cotton/64/000000/innovation.png').then((empty:any)=>{
-  //             console.log("iconRegistered", empty)
-  //             sdk.Mattertag.editIcon(currentSID, '88889');
-  //           }).then((empty:any)=>{
-  //             console.log("Icon edited ", empty);
-  //           })
-  //         })
-  //       }
-  //     }
-  //   };
-  // }
-
   
 
   const classes = useStyles();
@@ -144,9 +123,6 @@ const MatterportPage: React.FC<any> = () => {
       <Grid item lg={3} md={4} sm={5} xs = {12}>
         <Sidebar coords={tagCoords} addItem={addItem} items={items} deleteItem={deleteItem} />
       </Grid>
-      {/* <Grid item xs = {1} style={{backgroundColor:'green'}}>
-        <Button onClick={registerSID}>REGISTER SID <img src={"https://img.icons8.com/cotton/64/000000/innovation.png"} alt="Logo" style={{height:'50px', width:'50px'}}/>;</Button>
-      </Grid> */}
     </Grid>
   );
 };
