@@ -15,11 +15,12 @@ interface ISidebarProps {
     normal: { x: number; y: number; z: number };
   };
   items: any;
+  updateOverlay: any;
   deleteItem: (id:number) => void; 
   addItem: (item: IItem) => void;
 }
 
-const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem}) => {
+const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem, updateOverlay}) => {
   const [profile, setProfile] = useState<IProfile>();
   const [type, setType] = useState('Light'); //! Get predetermined types.
 
@@ -61,13 +62,13 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem})
   const updateValueName = (e: any) => {
     setValues({ ...values, name: e.target.value });
   };
-
+  
   return (
     <AppBar position="static" style={{ height: '100%', width: '100%' }}>
-      <div style={{ height: '100%', backgroundColor: '#ff3158' }}>
-        <div style={{ paddingLeft: '7px',backgroundColor: '#ff3158'  }}>
-          <Typography variant="h6">Dashboard</Typography>
-          {profile?.role && (
+      <div style={{ height: '100%', backgroundColor: '#9c1a33' }}>
+        <div style={{ paddingLeft: '7px',backgroundColor: '#9c1a33'  }}>
+          {/* //! CHANGE ROLE TO ADMIN */}
+          {profile?.role === 'user' && (
             <AddItem
               coords={coords}
               handleAddTag={handleAddTag}
@@ -77,7 +78,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem})
               setType={setType}
             />
           )}
-          <ItemList items={items} matterPortService={matterPortService} deleteItem={deleteItem}/>
+          <ItemList items={items} matterPortService={matterPortService} deleteItem={deleteItem} updateOverlay={updateOverlay}/>
         </div>
       </div>
     </AppBar>

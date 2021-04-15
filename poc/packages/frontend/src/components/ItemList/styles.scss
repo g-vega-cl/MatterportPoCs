@@ -1,8 +1,6 @@
 .MuiTextField-root input {
-    /* 14.5px = 18.5px - 4px (note: 18.5px is the input's default padding top and bottom) */
-    padding-top: 5px;
-    padding-bottom: 3px; 
-    width: 30px;
+    padding-top: 4px;
+    padding-bottom: 10px; 
 }
 
 .MuiButton-root{

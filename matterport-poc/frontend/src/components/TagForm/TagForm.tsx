@@ -128,7 +128,7 @@ const MatterportBox: React.FC<ITagFormProps> = ({
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <LocationOff style={{ fontSize: '1.2rem', color: '#ff3158' }} />
+                  <LocationOff style={{ fontSize: '1.2rem', color: '#9c1a33' }} />
                   <Typography>No location selected</Typography>
                 </React.Fragment>
               )}
