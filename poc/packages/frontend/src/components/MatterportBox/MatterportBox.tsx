@@ -1,8 +1,5 @@
 import './MatterportBox.scss';
-
-import { Typography } from '@material-ui/core';
 import React, { RefObject, useCallback, useContext, useEffect, useRef, useState } from 'react';
-
 import { CoordsPoint, MATTERPORT_CONNECTION } from '../../modules/MatterportPage/constants';
 import { MatterSdkStore } from '../../modules/MatterportPage/store';
 import { MatterPhase } from '../../utils/hooks/matterport/typings';
@@ -13,11 +10,14 @@ import { useHover } from '../../utils/hooks/useHover';
 
 interface IMatterportBoxProps {
   iframeRef: RefObject<HTMLIFrameElement>;
+  showOverlay: boolean;
+  setShowOverlay: any;
+  overlayItem: any;
   setTagCoords: (coords: { position: CoordsPoint; normal: CoordsPoint }) => void;
   onLoad: () => void;
 }
 
-const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef, onLoad }) => {
+const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef, onLoad, showOverlay, setShowOverlay, overlayItem }) => {
   // matterport sdk stuff
   const { sdk } = useContext(MatterSdkStore);
   const poseCache = useMatterPose(sdk);
@@ -41,7 +41,6 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
   const [buttonPosition, setButtonPosition] = useState({ x: 0, y: 0 });
   const [iframeSize, setIframeSize] = useState({ w: 0, h: 0 });
   const [sdkError, setSdkError] = useState(false);
-
   // handlers
   const saveCoords = useCallback(
     (e) => {
@@ -50,6 +49,13 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
       // const coords3D = { position: poseCache, normal: poseCache };
       // const coords3D = matterportService.get3DCoords();
 
+      setTagCoords(intersectionCache);
+      setToggleAddButton(false);
+    },
+    [intersectionCache, setTagCoords],
+  );
+
+  const updateCoords = useCallback(() => {
       setTagCoords(intersectionCache);
       setToggleAddButton(false);
     },
@@ -97,7 +103,7 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
             clearTimeout(containerButtonTimeOut);
             setToggleAddButton(false);
           }
-        }, 300),
+        }, 500),
       );
     }
     // We don't want an infinite loop and onlye want to know if we are being hovered
@@ -106,12 +112,10 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
 
   useEffect(() => {
     if (!sdk || !poseCache || !intersectionCache) return;
-
     if (isIframeContainerHovered) {
       // reset and hide on move
       clearTimeout(showButtonTimeOut);
       setToggleAddButton(false);
-
       // when done moving show add button
       setShowButtonTimeOut(
         setTimeout(() => {
@@ -123,7 +127,8 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
           setButtonPosition(position);
           setToggleAddButton(true);
           addButtonRef.current?.focus();
-        }, 2000),
+          updateCoords();
+        }, 3000),
       );
     }
     return () => {
@@ -143,23 +148,11 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
             ref={iframeRef}
             width="100%"
             height="100%"
-            src="https://my.matterport.com/show?m=SxQL3iGyoDo&play=1"
+            // src="https://my.matterport.com/show?m=SxQL3iGyoDo&play=1"
+            src="https://my.matterport.com/show/?m=pGeppb6sA6D&play=1"
             allow="vr"
           ></iframe>
         </div>
-
-        {toggleAddButton && (
-          <div className="button-container" ref={buttonContainerRef}>
-            <button
-              ref={addButtonRef}
-              className="add-label"
-              style={{ top: buttonPosition.y - 5, left: buttonPosition.x - 15 }}
-              onClick={saveCoords}
-            >
-              Get coordinates
-            </button>
-          </div>
-        )}
       </div>
     </div>
   );

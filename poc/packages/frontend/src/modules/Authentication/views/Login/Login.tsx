@@ -53,7 +53,6 @@ const LogIn: React.FC<any> = (props) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 variant="outlined"
-                size="small"
                 margin="dense"
                 fullWidth
                 error={!!errors.username}
@@ -67,7 +66,6 @@ const LogIn: React.FC<any> = (props) => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 variant="outlined"
-                size="small"
                 margin="dense"
                 fullWidth
                 error={!!errors.password}

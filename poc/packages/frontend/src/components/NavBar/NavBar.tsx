@@ -25,8 +25,8 @@ const NavBar: React.FC = () => {
   };
 
   return (
-    <AppBar position="static">
-      <Toolbar className="nav-bar">
+    <AppBar position="static" className="app-bar" style={{minHeight:'0px'}}>
+      <Toolbar className="nav-bar" style={{minHeight:'0px'}}>
         {loggedIn ? (
           <React.Fragment>
             <Typography variant="h6" className="nav-bar--user">

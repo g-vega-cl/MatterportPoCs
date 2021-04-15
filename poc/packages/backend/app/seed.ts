@@ -8,22 +8,20 @@ function seed(): PromiseLike<any> {
 
   // Creates first admin user
   return User.count().then((count: number) => {
-    if (count === 0)
-      return User.create({
+    if (count === 0){
+      User.create({
         name: "Admin",
         email: "admin@example.com",
         password: "adminadmin",
         role: "admin",
       });
-    
-    if (count === 1)
       return User.create({
         name: "User",
         email: "user@example.com",
         password: "useruser",
         role: "user",
       });
-    
+    }
     return null;
   });
 }
