@@ -1,126 +1,78 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Button, Grid, Switch, TextField } from '@material-ui/core';
-import ItemsService from 'services/itemsService';
-import './styles.scss';
+import { Box, Button, Grid, Slider, Switch, Paper, TextField, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
-import TvIcon from '@material-ui/icons/Tv';
-import AcUnitIcon from '@material-ui/icons/AcUnit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import WbSunnyIcon from '@material-ui/icons/WbSunny';
+import TimerIcon from '@material-ui/icons/Timer';
+import SettingsIcon from '@material-ui/icons/Settings';
+import './styles.scss';
 
-interface IItemListProps {
-  items: any;
-  matterPortService: any;
-  updateOverlay: any;
-  deleteItem: (id: number) => void;
+interface ILightOverlay {
+  item: any;
+  setShowOverlay: any;
 }
 
-const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteItem, updateOverlay }) => {
-  const [itemsValues, setItemsValues] = useState<any[]>([]);
-  const firstPopulation = useRef<boolean>(true);
+const useStyles = makeStyles({
+  slider: {
+    width: 300,
+  },
+});
 
-  //First time it runs, set the values. At first all false, when I get the database, they will be taken from the db.
-  //The item should have the value. ? eventually it will be like item.status or state or something.
-  useEffect(() => {
-    const initialItemsValues: any[] = [];
-    if (firstPopulation.current) {
-      items.forEach((item: any) => {
-        if (item.type === 'Thermostat') {
-          initialItemsValues.push({'temp':25, 'mode':'Cold'});
-        } else {
-          initialItemsValues.push(false);
-        }
-        firstPopulation.current = false;
-      });
-      setItemsValues(initialItemsValues);
-    }
-  }, [setItemsValues, items]);
-
-  const navigateToItemId = (item: any) => {
-    const matterportId = item.matterportId;
-    matterPortService.navigateToTag(matterportId);
-    console.log("updatingOverlay");
-    updateOverlay(item);
+const LightOverlay: React.FC<ILightOverlay> = ({ item, setShowOverlay }) => {
+  const sliderText = (value: any) => {
+    return `${value}%`;
   };
-
-  const handleDeleteItem = (e: any, id: number, matterportId: string) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!matterPortService) return;
-
-    ItemsService.deleteItem(id).then(() => {
-      matterPortService.deleteTag(matterportId).then(() => {
-        deleteItem(id);
-      });
-    });
+  const closeOverlay = () => {
+    setShowOverlay(false);
   };
-
-  //! Pretty function with many parameters.
-  const updateItemValue = (index:number, type:string) => (e: any) => {
-      const newItemsValues = [...itemsValues];
-      if(type !== "Thermostat"){
-        newItemsValues[index] = !newItemsValues[index];
-        setItemsValues(newItemsValues);
-      } else{
-        newItemsValues[index].temp = e.target.value;
-        setItemsValues(newItemsValues);
-      }
-  };
-
-  const toggleACMode = (index:number) => (e:any) =>{
-    const newItemsValues = [...itemsValues];
-    newItemsValues[index].mode = newItemsValues[index].mode == "Cold" ? "Hot" : "Cold";
-    setItemsValues(newItemsValues);
-  }
-
   return (
-    <Grid container style={{ marginTop: '5px' }}>
-      {items.map((item: any, index: number) => {
-        return (
-          <>
-            <Grid item xs={2} style={{ marginRight: '15px', marginTop: '10px' }}>
-              {item.type !== 'Thermostat' ? (
-                <Switch
-                  checked={itemsValues[index]}
-                  onChange={updateItemValue(index,item.type)}
-                  name={`switch-${index}`}
-                  color="secondary"
-                  size="small"
-                />
-              ) : (
-                <TextField
-                  id={`outlined-basic-${index}`}
-                  label={`C°`}
-                  variant="outlined"
-                  value={itemsValues[index]?.temp}
-                  onChange={updateItemValue(index,item.type)}
-                  style={{width:'50px'}}
-                />
-              )}
-            </Grid>
-            <Grid item xs={6} style={{ marginTop: '5px' }}>
-              <Button onClick={() => navigateToItemId(item)} style={{ fontSize: '12px' }}>{item.name}</Button>
-            </Grid>
-            <Grid item xs={1} style={{ marginTop: '6px' }}>
-              {item.type === 'Light' && <EmojiObjectsIcon />}
-              {item.type === 'Tv' && <TvIcon />}
-              {item.type === 'Thermostat' && 
-              <Button onClick={toggleACMode(index)} style={{marginLeft:'-20px'}}>
-              {itemsValues[index]?.mode == "Cold" ? <AcUnitIcon /> : <WbSunnyIcon/> }
-              </Button>
-              
-              }
-            </Grid>
-            <Grid item xs={1} style={{marginTop:'3px'}}>
-              <Button onClick={(e) => handleDeleteItem(e, item.id, item.matterportId)}>
-                <DeleteIcon />
-              </Button>
-            </Grid>
-          </>
-        );
-      })}
-    </Grid>
+    <Paper elevation={3} style={{ backgroundColor: '#f0faff', height: '80%' }}>
+      <Grid container>
+        <Grid item xs={3} style={{ display: 'flex', marginTop: '16px'}}>
+          <Box onClick={closeOverlay} style={{marginLeft:'20px', display:'flex'}}>
+            <ArrowBackIosIcon style={{marginTop:'1px'}}/>
+          </Box>
+        </Grid>
+        <Grid item xs={6} style={{ display: 'flex', marginTop: '17px' }}>
+          <Typography variant="body1" style={{marginLeft: '46px'}}>{item.name}</Typography>
+        </Grid>
+        <Grid item xs={3} style={{ display: 'flex', marginTop: '9px' }}>
+          <Switch />
+        </Grid>
+        <Grid item xs={12} style={{ display: 'flex', margin: '20px', justifyContent: "center"}}>
+          <EmojiObjectsIcon />
+        </Grid>
+        <Grid item xs={12} style={{ display: 'flex', marginBottom: '7px', justifyContent: "center"}}>
+          <Slider
+            defaultValue={50}
+            getAriaValueText={sliderText}
+            aria-labelledby="discrete-slider"
+            valueLabelDisplay="auto"
+            step={10}
+            min={10}
+            max={100}
+            style={{ width: '80%' }}
+          />
+        </Grid>
+        <Grid item xs={12} style={{ display: 'flex', marginBottom: '180px', justifyContent: "center"}}>
+          {/* //! Here goes the value of the dimmer  */}
+          <Typography variant="body1">50%</Typography>
+        </Grid>
+        <Grid item xs={6} style={{ display: 'flex', justifyContent: "center"}}>
+          <Box style={{ backgroundColor: 'inherit' }}>
+            <TimerIcon />
+            <Typography style={{marginLeft: '-8px'}}>Timer</Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={6} style={{ display: 'flex', justifyContent: "center"}}>
+          <Box style={{ backgroundColor: 'inherit' }}>
+            <SettingsIcon />
+            <Typography style={{marginLeft: '-16px'}}>Settings</Typography>
+          </Box>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 
-export default ItemList;
+export default LightOverlay;

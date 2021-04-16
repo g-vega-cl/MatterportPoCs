@@ -7,6 +7,7 @@ import { useMatterIntersection } from '../../utils/hooks/matterport/useMatterInt
 import { useMatterPhase } from '../../utils/hooks/matterport/useMatterPhase';
 import { useMatterPose } from '../../utils/hooks/matterport/useMatterPose';
 import { useHover } from '../../utils/hooks/useHover';
+import LightOverlay from 'components/MatterportBox/Overlay/LightOverlay';
 
 interface IMatterportBoxProps {
   iframeRef: RefObject<HTMLIFrameElement>;
@@ -17,7 +18,14 @@ interface IMatterportBoxProps {
   onLoad: () => void;
 }
 
-const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef, onLoad, showOverlay, setShowOverlay, overlayItem }) => {
+const MatterportBox: React.FC<IMatterportBoxProps> = ({
+  setTagCoords,
+  iframeRef,
+  onLoad,
+  showOverlay,
+  setShowOverlay,
+  overlayItem,
+}) => {
   // matterport sdk stuff
   const { sdk } = useContext(MatterSdkStore);
   const poseCache = useMatterPose(sdk);
@@ -56,11 +64,9 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
   );
 
   const updateCoords = useCallback(() => {
-      setTagCoords(intersectionCache);
-      setToggleAddButton(false);
-    },
-    [intersectionCache, setTagCoords],
-  );
+    setTagCoords(intersectionCache);
+    setToggleAddButton(false);
+  }, [intersectionCache, setTagCoords]);
 
   /*
    * Trigger onLoad callback
@@ -137,6 +143,8 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sdk, intersectionCache, poseCache]);
 
+  console.log('Show overlay? ', showOverlay);
+
   return (
     <div className="column" style={{ height: '100%' }}>
       <div className="matter-box" style={{ height: '100%' }}>
@@ -153,6 +161,11 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({ setTagCoords, iframeRef,
             allow="vr"
           ></iframe>
         </div>
+        {showOverlay && (
+          <div className="overlay-container">
+            <LightOverlay item={overlayItem} setShowOverlay={setShowOverlay} />
+          </div>
+        )}
       </div>
     </div>
   );

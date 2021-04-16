@@ -6,33 +6,20 @@
     width: 100%;
   }
 
-  .button-container {
-    position: 'absolute';
-    width: 7px;
-    height: 11px;
-    background-color: #7e1d1dcc;
-    &:hover {
-      background: rgba(29, 126, 66, 0.8);
-    }
-    border-color: black;
-
-  }
-
-  .add-label {
-    cursor: pointer;
-    background: #831e1e;
-    color: white;
-    border-radius: 8px;
+  .overlay-container {
     position: absolute;
+    width: 250px;
+    height: 500px;
+    border-color: black;
+    top:5%;
+    left: 50%;
     z-index: 999;
-    padding: 7px 11px;
-
-    &:hover {
-      background: green;
-    }
   }
 }
 
 .error {
   color: red;
 }
+
+
+
