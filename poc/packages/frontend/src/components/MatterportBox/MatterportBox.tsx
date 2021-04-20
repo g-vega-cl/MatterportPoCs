@@ -143,8 +143,6 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sdk, intersectionCache, poseCache]);
 
-  console.log('Show overlay? ', showOverlay);
-
   return (
     <div className="column" style={{ height: '100%' }}>
       <div className="matter-box" style={{ height: '100%' }}>
@@ -163,7 +161,7 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({
         </div>
         {showOverlay && (
           <div className="overlay-container">
-            <LightOverlay item={overlayItem} setShowOverlay={setShowOverlay} />
+            {overlayItem.type === 'Light' && (<LightOverlay item={overlayItem} setShowOverlay={setShowOverlay} />)}
           </div>
         )}
       </div>

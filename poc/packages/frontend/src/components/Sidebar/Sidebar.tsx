@@ -68,7 +68,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem, 
       <div style={{ height: '100%', backgroundColor: '#9c1a33' }}>
         <div style={{ paddingLeft: '7px',backgroundColor: '#9c1a33'  }}>
           {/* //! CHANGE ROLE TO ADMIN */}
-          {profile?.role === 'user' && (
+          {profile?.role === 'admin' && (
             <AddItem
               coords={coords}
               handleAddTag={handleAddTag}

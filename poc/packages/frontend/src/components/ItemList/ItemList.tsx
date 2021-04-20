@@ -39,7 +39,6 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
   const navigateToItemId = (item: any) => {
     const matterportId = item.matterportId;
     matterPortService.navigateToTag(matterportId);
-    console.log("updatingOverlay");
     updateOverlay(item);
   };
 
