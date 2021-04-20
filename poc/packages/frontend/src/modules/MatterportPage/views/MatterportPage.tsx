@@ -36,7 +36,6 @@ const MatterportPage: React.FC<any> = () => {
 
   const updateOverlay  = (item:any) =>{
     setShowOverlay(true);
-    console.log("propagatedItem ", item)
     setOverlayItem(item);
   }
 
