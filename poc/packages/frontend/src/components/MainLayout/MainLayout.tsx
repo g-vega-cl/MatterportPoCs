@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 
 import MatterportPage from "../../modules/MatterportPage";
 import MatterSdkStoreProvider from "../../modules/MatterportPage/store";
-import NavBar from "../NavBar";
 import AuthenticationService from "../../services/authenticationService";
 import { AuthenticationStore } from "../../modules/Authentication/store";
 
@@ -37,7 +36,6 @@ const MainLayout: React.FC<any> = () => {
   return (
     <div className="main-layout">
       <MatterSdkStoreProvider>
-        <NavBar/>
         <MatterportPage />
       </MatterSdkStoreProvider>
     </div>

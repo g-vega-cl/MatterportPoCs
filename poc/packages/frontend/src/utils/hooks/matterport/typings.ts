@@ -140,4 +140,5 @@ export interface MatterSDK {
   Settings: any;
   Sweep: any;
   Tour: any;
+  on: any; //!CV added by me. want https://matterport.github.io/showcase-sdk/docs/sdk/reference/current/index.html to work.
 }

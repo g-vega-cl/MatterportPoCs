@@ -143,6 +143,18 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sdk, intersectionCache, poseCache]);
 
+  useEffect(() => {
+    if (sdk && showOverlay === false) {
+      sdk?.on(sdk.Mattertag.Event.CLICK, function (tagSid: string) {
+        console.log(tagSid + ' was selected');
+        setShowOverlay(true);
+        console.log('overlay shown?');
+      });
+    }
+  }, [sdk, showOverlay, setShowOverlay]);
+
+  console.log('show overlay? ', showOverlay, 'overlay item ', overlayItem);
+
   return (
     <div className="column" style={{ height: '100%' }}>
       <div className="matter-box" style={{ height: '100%' }}>
@@ -161,7 +173,8 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({
         </div>
         {showOverlay && (
           <div className="overlay-container">
-            {overlayItem.type === 'Light' && (<LightOverlay item={overlayItem} setShowOverlay={setShowOverlay} />)}
+            {/* {overlayItem.type === 'Light' && (<LightOverlay item={overlayItem} setShowOverlay={setShowOverlay} />)} */}
+            <LightOverlay item={overlayItem} setShowOverlay={setShowOverlay} />
           </div>
         )}
       </div>
