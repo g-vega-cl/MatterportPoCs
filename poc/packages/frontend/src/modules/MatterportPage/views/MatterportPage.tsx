@@ -22,8 +22,7 @@ interface TagCoords {
 }
 
 const MatterportPage: React.FC<any> = () => {
-  const { setSdk } = useContext(MatterSdkStore);
-  const [items, setItems] = useState<any[]>([]);
+  const { setSdk, items, setItems } = useContext(MatterSdkStore);
   const [tagCoords, setTagCoords] = useState<TagCoords>({
     position: { ...BASE_COORDS },
     normal: { ...BASE_COORDS },
@@ -47,6 +46,7 @@ const MatterportPage: React.FC<any> = () => {
 
   const getItems = useCallback(() => {
     if (!matterPortService) return;
+    console.log("getting items");
     ItemsService.getItems().then((items) => {
       return matterPortService
         .addTags(items)
@@ -66,7 +66,7 @@ const MatterportPage: React.FC<any> = () => {
   useEffect(()=>{
     if(sdk){
       if(sdk.Mattertag){
-        items.forEach((item)=>{
+        items.forEach((item:any)=>{
           switch(item.type){
             case "Light":
               sdk?.Mattertag.getData().then((data:any)=>{
@@ -114,7 +114,7 @@ const MatterportPage: React.FC<any> = () => {
   
 
   const classes = useStyles();
-  const pageheight='94vh'
+  const pageheight='97vh'
   return (
     <Grid container className={classes.root} spacing={0} style={{height: pageheight}}>
       <Grid item lg={9} md={8} sm={7} xs = {12} style={{height: pageheight}}>
@@ -125,6 +125,7 @@ const MatterportPage: React.FC<any> = () => {
           showOverlay = {showOverlay}
           setShowOverlay={setShowOverlay}
           overlayItem={overlayItem}
+          setOverlayItem = {setOverlayItem}
         />
       </Grid>
       <Grid item lg={3} md={4} sm={5} xs = {12} className="sidebar-grid" style={{height: pageheight}}>

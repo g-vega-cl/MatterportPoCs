@@ -11,9 +11,10 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 interface INavbar {
   showAdd: boolean;
   setShowAdd: any;
+  userType: any;
 }
 
-const NavBar: React.FC<INavbar> = ({ showAdd, setShowAdd }) => {
+const NavBar: React.FC<INavbar> = ({ showAdd, setShowAdd, userType }) => {
   const history = useHistory();
   const authStore = useContext(AuthenticationStore);
   const { name, loggedIn } = authStore.state.user;
@@ -38,12 +39,12 @@ const NavBar: React.FC<INavbar> = ({ showAdd, setShowAdd }) => {
       <Toolbar className="nav-bar" style={{ minHeight: '0px' }}>
         {loggedIn ? (
           <React.Fragment>
-            {!showAdd && (
+            {!showAdd && userType == 'admin' && (
               <Button onClick={toggleShowAdd} style= {{width:'10px', marginLeft:'-10%', padding:'0px'}}>
                 <AddCircleOutlineIcon />
               </Button>
             )}
-            {showAdd && (
+            {showAdd && userType == 'admin' && (
               <Button onClick={toggleShowAdd} style= {{width:'10px', marginLeft:'-10%', padding:'0px'}}>
                 <RemoveIcon />
               </Button>

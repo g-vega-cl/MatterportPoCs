@@ -68,7 +68,7 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem, 
   
   return (
     <AppBar position="static" style={{ height: '100%', width: '100%' }}>
-      <NavBar showAdd = {showAdd} setShowAdd = {setShowAdd}/>
+      <NavBar showAdd = {showAdd} setShowAdd = {setShowAdd} userType = {profile?.role}/>
       <div style={{ height: '100%', backgroundColor: '#0c3e60' }}>
         <div style={{ paddingLeft: '7px'}}>
           {/* //! CHANGE ROLE TO ADMIN */}

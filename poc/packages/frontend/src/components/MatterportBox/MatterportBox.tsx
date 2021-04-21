@@ -14,6 +14,7 @@ interface IMatterportBoxProps {
   showOverlay: boolean;
   setShowOverlay: any;
   overlayItem: any;
+  setOverlayItem: any;
   setTagCoords: (coords: { position: CoordsPoint; normal: CoordsPoint }) => void;
   onLoad: () => void;
 }
@@ -25,9 +26,10 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({
   showOverlay,
   setShowOverlay,
   overlayItem,
+  setOverlayItem,
 }) => {
   // matterport sdk stuff
-  const { sdk } = useContext(MatterSdkStore);
+  const { sdk, items } = useContext(MatterSdkStore);
   const poseCache = useMatterPose(sdk);
   const intersectionCache = useMatterIntersection(sdk);
   const matterPhase = useMatterPhase(sdk);
@@ -148,12 +150,17 @@ const MatterportBox: React.FC<IMatterportBoxProps> = ({
       sdk?.on(sdk.Mattertag.Event.CLICK, function (tagSid: string) {
         console.log(tagSid + ' was selected');
         setShowOverlay(true);
-        console.log('overlay shown?');
+        console.log("items: ", items) //!The plan is to find the item by tagSid and make it setOverlayItem
+        if(items){
+          const currentItem = items.find((item:any)=>item.matterportId === tagSid)
+          console.log("current item ", currentItem)
+          if(currentItem){
+            setOverlayItem(currentItem);
+          } 
+        }
       });
     }
   }, [sdk, showOverlay, setShowOverlay]);
-
-  console.log('show overlay? ', showOverlay, 'overlay item ', overlayItem);
 
   return (
     <div className="column" style={{ height: '100%' }}>
