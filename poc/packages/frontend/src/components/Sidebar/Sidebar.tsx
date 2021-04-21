@@ -8,6 +8,8 @@ import { AddItem } from 'components/AddItem/AddItem';
 import ProfileService, { IProfile } from 'services/profileService';
 import { Typography } from '@material-ui/core';
 import ItemList from 'components/ItemList/ItemList';
+import NavBar from 'components/NavBar/NavBar';
+import MatterportService from 'services/matterportService';
 
 interface ISidebarProps {
   coords: {
@@ -23,6 +25,7 @@ interface ISidebarProps {
 const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem, updateOverlay}) => {
   const [profile, setProfile] = useState<IProfile>();
   const [type, setType] = useState('Light'); //! Get predetermined types.
+  const [showAdd, setShowAdd] = useState(false);
 
   useEffect(() => {
     (async function callGetProfile() {
@@ -65,10 +68,11 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem, 
   
   return (
     <AppBar position="static" style={{ height: '100%', width: '100%' }}>
-      <div style={{ height: '100%', backgroundColor: '#9c1a33' }}>
-        <div style={{ paddingLeft: '7px',backgroundColor: '#9c1a33'  }}>
+      <NavBar showAdd = {showAdd} setShowAdd = {setShowAdd}/>
+      <div style={{ height: '100%', backgroundColor: '#0c3e60' }}>
+        <div style={{ paddingLeft: '7px'}}>
           {/* //! CHANGE ROLE TO ADMIN */}
-          {profile?.role === 'admin' && (
+          {profile?.role === 'admin' && showAdd && (
             <AddItem
               coords={coords}
               handleAddTag={handleAddTag}
@@ -76,6 +80,8 @@ const SideBar: React.FC<ISidebarProps> = ({ coords, items, addItem, deleteItem, 
               values={values}
               type={type}
               setType={setType}
+              showAdd = {showAdd}
+              setShowAdd = {setShowAdd}
             />
           )}
           <ItemList items={items} matterPortService={matterPortService} deleteItem={deleteItem} updateOverlay={updateOverlay}/>

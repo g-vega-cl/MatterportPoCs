@@ -77,28 +77,8 @@ const ItemList: React.FC<IItemListProps> = ({ items, matterPortService, deleteIt
       {items.map((item: any, index: number) => {
         return (
           <>
-            <Grid item xs={2} style={{ marginRight: '15px', marginTop: '10px' }}>
-              {item.type !== 'Thermostat' ? (
-                <Switch
-                  checked={itemsValues[index]}
-                  onChange={updateItemValue(index,item.type)}
-                  name={`switch-${index}`}
-                  color="secondary"
-                  size="small"
-                />
-              ) : (
-                <TextField
-                  id={`outlined-basic-${index}`}
-                  label={`C°`}
-                  variant="outlined"
-                  value={itemsValues[index]?.temp}
-                  onChange={updateItemValue(index,item.type)}
-                  style={{width:'50px'}}
-                />
-              )}
-            </Grid>
-            <Grid item xs={6} style={{ marginTop: '5px' }}>
-              <Button onClick={() => navigateToItemId(item)} style={{ fontSize: '12px' }}>{item.name}</Button>
+            <Grid item xs={8} style={{ marginTop: '5px' }}>
+              <Button onClick={() => navigateToItemId(item)} style={{ fontSize: '12px', display:'flex', color:'#E5DDD3', fontWeight:'bold' }}>{item.name}</Button>
             </Grid>
             <Grid item xs={1} style={{ marginTop: '6px' }}>
               {item.type === 'Light' && <EmojiObjectsIcon />}
